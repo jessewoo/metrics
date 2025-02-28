@@ -11,12 +11,25 @@ CRUD platform to add ip addresses that are bad bots, LLM bots
 ### Create an API, show on a page
 * Using FLASK API, create a simple API that will aggregate data sets
 * Different API include:
- - GET and POST for bots CRUD page. With new POST, it will delete rows from the usage table
- - GET metric data by dates
+    * GET and POST for bots CRUD page. With new POST, it will delete rows from the usage table
+    * GET metric data by dates
 * Creation of a CRUD page of bots
 * Creation of a bar charts of metrics, pulling data from API with simple fetch JS 
 
 ## References
-### What are the different log files
+### Different log files
 * /var/log/httpd/ - Contains the apache web server access_log and error_log and related virtual hosts logs if set up to log here. 
 * /var/log/apache2 - Contains the apache web server access_log and error_log and related virtual hosts logs if set up to log here.
+
+Test files are located in files/accesslogs and files/cmsauth
+
+## Packages
+ ~~~
+ python3 -m venv .venv
+ source .venv/bin/activate
+ pip install requests
+ pip install dotenv
+
+ get on (.venv)
+ exit: deactivate
+ ~~~
