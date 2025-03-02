@@ -1,8 +1,11 @@
 import gzip
 import os
 import re
+import pandas as pd
 
 script_dir = os.path.dirname(__file__)
+
+# extract regex match groups and append them to a Pandas DataFrame:
 
 # Read and parse out the CMS auth log files
 # Created a file that only takes the first 6 minutes of 1/1/25
@@ -14,31 +17,18 @@ pattern_new_og = r"^(\d{4}-\d{2}-\d{2})\s+(\d+:\d{2}:\d{2})\s+([\w\-\d]+)\s+([\d
 # 23 captured groups - using regex101.com in python. Broke it down - removed the / for php
 pattern_new = r"^(\d{4}-\d{2}-\d{2})\s+(\d+:\d{2}:\d{2})\s+([\w\-\d]+)\s+([\d]+)\s+(\S+)\s+\"(.+)\"\s+([\-\d]+)\s+([\d]+)\s+([\w\-\.\d]+)\s+\"(.*)\"\s+\"(.*)\"\s+([\w\-\.\d]+)\s+([\w\-\d]+)\s+([\w\-\d]+)\s+([\-\d]+)\s+([^_].*)\s+([^_].*)\s+([^_].*)\s+([^_].*)\s+([^_].*)\s+([^_].*)\s+([^_].*)\s+([^_].*)$"
 
+data = []
 with gzip.open(oneCmsAuthLog, 'rt') as file:
-  nomatchCnt = 0; newmatchCnt = 0; oldmatchCnt = 0; newogmatchCnt = 0;
   for idx, line in enumerate(file):
+    match = re.match(pattern_new, line)
+    if match:
+      data.append(match.groups())
 
-    oldMatch = re.match(pattern_old, line)
-    newogMatch = re.match(pattern_new_og, line)
-    newMatch = re.match(pattern_new, line)
-
-    if oldMatch:
-      oldmatchCnt += 1
-    elif newogMatch:
-      datestamp = newogMatch.group(1)
-      useragent = newogMatch.group(11)
-      print(useragent)
-      newogmatchCnt += 1  
-    elif newMatch:
-      newmatchCnt += 1
-    else:
-      print("no match in line:" + str(idx))
-      nomatchCnt += 1
-
-  print('old match:' + str(oldmatchCnt))
-  print('new match og:' + str(newogmatchCnt))
-  print('new match:' + str(newmatchCnt))
-  print('no match:' + str(nomatchCnt))
+  df = pd.DataFrame(data, columns=['Datestamp', 'Timestamp', 'Timezone', 'Pid', 'User', 'Firstline', 'Return', 'Bytes', 'Ip', 'Referrer', 'Useragent', 'sslport', 'ts', 'tms', 'uidNumber', 'joomla_id', 'st_cookie', 'auth_type', 'comp_name', 'view_name', 'task_name', 'actn_name', 'item_name'])
   
-# file_content = file.read()
-# print(file_content);
+  print(df)
+
+
+# Utilize the entire dataframe, filter out offending referrer URL and filter out bad IP addresses
+# Remaining rows - store into database - maybe that's double, not worth it
+# Go row after row, determine if it's good, then push to web hits
