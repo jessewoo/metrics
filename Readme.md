@@ -18,8 +18,8 @@ CRUD platform to add ip addresses that are bad bots, LLM bots
 
 ## References
 ### Different log files
-* /var/log/httpd/ - Contains the apache web server access_log and error_log and related virtual hosts logs if set up to log here. 
-* /var/log/apache2 - Contains the apache web server access_log and error_log and related virtual hosts logs if set up to log here.
+* /var/log/hubzero/imported/ CONTAINS all the cmsauth.log-2025*.gz
+* /var/log/apache2/imported/ CONTAINS all the SITE-access.log-2025*.gz
 
 Test files are located in files/accesslogs and files/cmsauth
 
@@ -30,10 +30,17 @@ Test files are located in files/accesslogs and files/cmsauth
  pip install requests
  pip install dotenv
  pip install pandas
+ pip install mysql-connector-python
 
  get on (.venv)
  exit: deactivate
  ~~~
+
+
+Add access.log files to DB table, 
+Create a function that will clean things up
+Create a table with ip addresses to 
+
 
 
 Exclude bot and nondesirable records?
