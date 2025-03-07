@@ -2,3 +2,4 @@ files/
 bulkchecker/
 .env
 sandbox/
+__pycache__

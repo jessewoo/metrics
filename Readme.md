@@ -31,6 +31,7 @@ Test files are located in files/accesslogs and files/cmsauth
  pip install dotenv
  pip install pandas
  pip install mysql-connector-python
+ pip install flask
 
  get on (.venv)
  exit: deactivate
