@@ -37,11 +37,9 @@ Test files are located in files/accesslogs and files/cmsauth
  exit: deactivate
  ~~~
 
-
 Add access.log files to DB table, 
 Create a function that will clean things up
 Create a table with ip addresses to 
-
 
 
 Exclude bot and nondesirable records?

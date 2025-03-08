@@ -3,3 +3,4 @@ bulkchecker/
 .env
 sandbox/
 __pycache__
+remainingAccessLogs.txt
