@@ -36,30 +36,3 @@ Test files are located in files/accesslogs and files/cmsauth
  get on (.venv)
  exit: deactivate
  ~~~
-
-Add access.log files to DB table, 
-Create a function that will clean things up
-Create a table with ip addresses to 
-
-
-Exclude bot and nondesirable records?
-userlogin
-    where: import/xlogimport_authlog.php
-    at insert time, exclude any IPs specified in exclude_list table
-web table
-    where: import/xlogimport_apache.php
-    at insert time, exclude IPs, URLs, useragents specified in exclude_list table
-        and useragents found in bot_useragents table (botcheck)
-webhits table
-    where: import/xlogimport_webhits.php
-    at insert time, exclude IPs, URLs, useragents specified in exclude_list table
-        and useragents found in bot_useragents table (botcheck)
-websessions table
-    where:  logfix_session.pl
-    processes sessions from the web table, no bot checks used
-jos_session_geo (whoisonline)
-    where: xlogfix_whoisonline.php
-    labels as bot any useragent found in bot_useragents table (botcheck)
-
-useragent strings - put into exclude list, don't go into the web table. Exclude them to the web table. 
-Userlogin
